@@ -5,5 +5,6 @@
 
 #include <iostream>
 #include <SDL.h>
+#include <SDL_image.h>
 
 // TODO: Reference additional headers your program requires here.
