@@ -1,7 +1,14 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
-find_package(SDL2 REQUIRED HINTS $ENV{SDL2})
-find_package(SDL2_image REQUIRED HINTS $ENV{SDL_image})
+if(WIN32)
+	find_package(SDL2 REQUIRED HINTS $ENV{SDL2})
+	find_package(SDL2_image REQUIRED HINTS $ENV{SDL_image})
+else()
+	INCLUDE(FindPkgConfig)
+	PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
+	PKG_SEARCH_MODULE(SDL2_IMAGE REQUIRED SDL2_image>=2.0.0)
+endif()
+
 
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS} "${CMAKE_CURRENT_LIST_DIR}/include")
 add_executable (Quadopoly "Quadopoly.cpp")
