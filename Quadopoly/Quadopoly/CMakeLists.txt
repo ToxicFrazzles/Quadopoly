@@ -11,7 +11,11 @@ endif()
 
 
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS} "${CMAKE_CURRENT_LIST_DIR}/include")
-add_executable (Quadopoly "Quadopoly.cpp")
+add_executable (Quadopoly 
+		"src/Quadopoly.cpp"
+		"src/RenderWindow.cpp"
+		"src/FPSCounter.cpp"
+		"src/Scene.cpp")
 target_link_libraries(Quadopoly ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
 
 if(${CMAKE_BUILD_TYPE} STREQUAL Debug)
@@ -31,3 +35,7 @@ set(REQUIREMENTS
 foreach(requirement IN ITEMS ${REQUIREMENTS})
 	configure_file(${requirement} "${CMAKE_BINARY_DIR}/Quadopoly/" COPYONLY)
 endforeach()
+
+add_custom_command(
+	TARGET Quadopoly POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Quadopoly/res ${CMAKE_BINARY_DIR}/Quadopoly/res)
